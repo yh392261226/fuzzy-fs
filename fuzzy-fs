@@ -1,5 +1,8 @@
 #!/bin/zsh
-FUZZY_FS_BASE_DIR=$(readlink -f $0 | xargs dirname)
+FUZZY_FS_BASE_DIR=$(readlink $0 | xargs dirname)
+if [ "" = "$FUZZY_FS_BASE_DIR" ]; then
+    FUZZY_FS_BASE_DIR=$(dirname $(type $0 | awk '{print $NF}'))
+fi
 
 function fuzzy-fs {
     # for debug
