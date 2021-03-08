@@ -3,9 +3,9 @@
 function _fuzzy-fs-abspath {
     if [[ -d "$*" ]]; then
         dir=$*
-        echo $(cd $dir; pwd)
+        echo $(custom_cd $dir; pwd)
     else
-        dir=$(cd $(dirname "$*"); pwd)
+        dir=$(custom_cd $(dirname "$*"); pwd)
         filename=$(basename "$*")
         [[ dir == "/" ]] && dir=""
         echo $dir/$filename

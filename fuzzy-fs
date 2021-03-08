@@ -4,6 +4,10 @@ if [ "" = "$FUZZY_FS_BASE_DIR" ]; then
     FUZZY_FS_BASE_DIR=$(dirname $(type $0 | awk '{print $NF}'))
 fi
 
+function custom_cd {
+	builtin cd "$@"
+}
+
 function fuzzy-fs {
     # for debug
     local field=main
@@ -14,7 +18,7 @@ function fuzzy-fs {
     local log_file=$base_dir/.log
 
     # load all functions
-    for dir in $(cd $base_dir; find . -type d -not -path '*/\.*'); do
+    for dir in $(custom_cd $base_dir; find . -type d -not -path '*/\.*'); do
         fpath+=($base_dir/$dir)
         autoload -Uz $(ls -p $base_dir/$dir | grep -v /)
     done
@@ -99,7 +103,7 @@ EOF
     # initialize
     init_path=$(_fuzzy-fs-abspath $init_path)
     local pre_path=$PWD
-    cd $init_path
+    custom_cd $init_path
     local next_panel=_fuzzy-fs-ls-panel
     # if you are using per-directory-history, init directory
     if [[ ! -z "$_per_directory_history_is_global" ]]; then
@@ -126,7 +130,7 @@ EOF
                 ;;
             cd)
                 local old_path=$PWD
-                cd "$target"
+                custom_cd "$target"
                 # if you are using z or autojump
                 _fuzzy-fs-add-recent-dir $PWD
                 # if you are using per-directory-history
