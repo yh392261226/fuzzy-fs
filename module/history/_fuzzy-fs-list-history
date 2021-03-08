@@ -2,6 +2,9 @@
 
 function _fuzzy-fs-list-history {
     local field=list-history
-
-    history | sed -re 's/^\s*[0-9]+\s*//' | awk '!x[$0]++' | sed "s/^/$command_icon /"
+    if {which gsed &> /dev/null}; then
+        history | gsed -re 's/^\s*[0-9]+\s*//' | awk '!x[$0]++' | sed "s/^/$command_icon /"
+    else
+        history | sed -re 's/^\s*[0-9]+\s*//' | awk '!x[$0]++' | sed "s/^/$command_icon /"
+    fi
 }
