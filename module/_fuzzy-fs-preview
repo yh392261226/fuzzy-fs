@@ -36,6 +36,25 @@ elif [[ -f "$target" ]]; then
         *.tar)
             tar -tvf "$target" | ${=pager_command}
             ;;
+        *.png | *.PNG | *.Png | *.jpg | *.JPG | *.Jpg | *.jpeg | *.JPEG | *.Jpeg | *.gif | *.GIF | *.Gif | *.bmp | *.BMP | *.tiff | *.TIFF | *.tif | *.TIF)
+            dim=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}
+            if [[ $dim = x ]]; then
+                dim=$(stty size < /dev/tty | awk '{print $2 "x" $1}')
+            elif ! [[ $KITTY_WINDOW_ID ]] && (( FZF_PREVIEW_TOP + FZF_PREVIEW_LINES == $(stty size < /dev/tty | awk '{print $1}') )); then
+                dim=${FZF_PREVIEW_COLUMNS}x$((FZF_PREVIEW_LINES - 1))
+            fi
+
+            if [[ $KITTY_WINDOW_ID ]]; then
+                kitty icat --clear --transfer-mode=memory --unicode-placeholder --stdin=no --place="$dim@0x0" "$target" | sed '$d' | sed $'$s/$/\e[m/'
+            elif command -v chafa > /dev/null; then
+                chafa -f sixel -s "$dim" "$target"
+                echo ""
+            elif command -v imgcat > /dev/null; then
+                imgcat -W "${dim%%x*}" -H "${dim##*x}" "$target"
+            else
+                file "$target"
+            fi
+            ;;
         *)
             ${=pager_command} "$target"
             ;;
