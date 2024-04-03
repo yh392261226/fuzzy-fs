@@ -138,6 +138,9 @@ EOF
                     _per-directory-history-change-directory "$PWD" "$old_path"
                 fi
                 ;;
+            copy)
+                _fuzzy-fs-copy "$PWD" "$target"
+                ;;
             rm)
                 rm -ir "$target"
                 ;;

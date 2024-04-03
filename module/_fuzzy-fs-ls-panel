@@ -15,6 +15,7 @@ function _fuzzy-fs-ls-panel {
     local key_run_query=${FUZZY_FS_KEY_RUN_QUERY:-Ctrl-O}
     local key_toggle_hidden=${FUZZY_FS_KEY_TOGGLE_HIDDEN:-Ctrl-T}
     local key_shell=${FUZZY_FS_KEY_SHELL:-Ctrl-I}
+    local key_copy=${FUZZY_FS_KEY_COPY:-Ctrl-Y}
     if [[ ! -z "$_per_directory_history_is_global" ]]; then
         local key_toggle_per_directory_history=Ctrl-G
     fi
@@ -30,6 +31,7 @@ function _fuzzy-fs-ls-panel {
         header+=$'\n'$(_fuzzy-fs-green "Open:")$'\t'$(_fuzzy-fs-white "$key_enter")
         header+=$'\t'$(_fuzzy-fs-green "Delete:")$'\t'$(_fuzzy-fs-white "$key_delete")
         header+=$'\t'$(_fuzzy-fs-green "Edit:")$'\t'$(_fuzzy-fs-white "$key_edit")
+        header+=$'\t'$(_fuzzy-fs-green "Copy:")$'\t'$(_fuzzy-fs-white "$key_copy")
 
         header+=$'\n'$(_fuzzy-fs-green "Exit:")$'\t'$(_fuzzy-fs-white "$key_exit")
         header+=$'\t'$(_fuzzy-fs-green "Refresh:")
@@ -61,7 +63,7 @@ function _fuzzy-fs-ls-panel {
         "_fuzzy-fs-list-history $pwd"
         "echo $recent_dir_separator"
         "_fuzzy-fs-list-recent-dir $pwd")
-    local expect="$key_enter,$key_delete,$key_exit,$key_refresh,$key_parent,$key_edit,$key_run_query,$key_find,$key_toggle_hidden,$key_shell,$key_toggle_per_directory_history"
+    local expect="$key_enter,$key_delete,$key_exit,$key_refresh,$key_parent,$key_edit,$key_copy,$key_run_query,$key_find,$key_toggle_hidden,$key_shell,$key_toggle_per_directory_history"
     _fuzzy-fs-fzf
 
     _fuzzy-fs-debug-var filename_column
@@ -86,6 +88,9 @@ function _fuzzy-fs-ls-panel {
             ;;
         $key_edit)
             cmd=edit
+            ;;
+        $key_copy)
+            cmd=copy
             ;;
         $key_find)
             next_panel=_fuzzy-fs-find-panel

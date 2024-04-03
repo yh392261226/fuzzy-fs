@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+function _fuzzy-fs-copy {
+    local field=copy
+    local pwd=$1
+    local target=$2
+    echo "$target" | pbcopy
+}
+
+echo "abc" > /tmp/abc

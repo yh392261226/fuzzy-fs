@@ -12,6 +12,7 @@ function _fuzzy-fs-find-panel {
     local key_refresh=${FUZZY_FS_KEY_REFRESH:-Ctrl-R}
     local key_shell=${FUZZY_FS_KEY_SHELL:-Ctrl-I}
     local key_parent=${FUZZY_FS_KEY_PARENT:-Ctrl-U}
+    local key_copy=${FUZZY_FS_KEY_COPY:-Ctrl-Y}
 
     # parameters and settings
     local pwd="$1"
@@ -25,6 +26,7 @@ function _fuzzy-fs-find-panel {
         header+=$'\n'$(_fuzzy-fs-green "Toggle Hidden:")$'\t'$(_fuzzy-fs-white "$key_toggle_hidden")
         header+=$'\n'$(_fuzzy-fs-green "Exit:")$'\t'$(_fuzzy-fs-white "$key_exit")
         header+=$'\n'$(_fuzzy-fs-green "Edit:")$'\t'$(_fuzzy-fs-white "$key_edit")
+        header+=$'\n'$(_fuzzy-fs-green "Copy:")$'\t'$(_fuzzy-fs-white "$key_copy")
         header+=$'\n'$(_fuzzy-fs-green "Refresh:")$'\t'$(_fuzzy-fs-white "$key_refresh")
         header+=$'\n'$(_fuzzy-fs-green "Go parent:")$'\t'$(_fuzzy-fs-white "$key_parent")
         header+=$'\n'$(_fuzzy-fs-green "Exit Find Mode:")$'\t'$(_fuzzy-fs-white "$key_abort")
@@ -39,7 +41,7 @@ function _fuzzy-fs-find-panel {
     local key item
     local pre_cmds=()
     local incremental_cmds=("_fuzzy-fs-find-recursively $pwd")
-    local expect="$key_enter,$key_toggle_hidden,$key_exit,$key_refresh,$key_shell,$key_edit,$key_abort,$key_parent"
+    local expect="$key_enter,$key_toggle_hidden,$key_exit,$key_refresh,$key_shell,$key_copy,$key_edit,$key_abort,$key_parent"
     _fuzzy-fs-fzf
 
     next_panel=_fuzzy-fs-ls-panel
@@ -65,6 +67,11 @@ function _fuzzy-fs-find-panel {
             ;;
         $key_edit)
             cmd=edit
+            local filename=$item
+            target=$filename
+            ;;
+        $key_copy)
+            cmd=copy
             local filename=$item
             target=$filename
             ;;
