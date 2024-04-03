@@ -9,11 +9,11 @@ function _fuzzy-fs-ls-panel {
     local key_delete=${FUZZY_FS_KEY_DELETE:-Ctrl-D}
     local key_exit=${FUZZY_FS_KEY_EXIT:-Ctrl-Q}
     local key_parent=${FUZZY_FS_KEY_PARENT:-Ctrl-U}
-    local key_edit=${FUZZY_FS_KEY_EDIT:-Ctrl-O}
+    local key_edit=${FUZZY_FS_KEY_EDIT:-Ctrl-E}
     local key_refresh=${FUZZY_FS_KEY_REFRESH:-Ctrl-R}
     local key_find=${FUZZY_FS_KEY_FIND:-Ctrl-F}
-    local key_run_query=${FUZZY_FS_KEY_RUN_QUERY:-Ctrl-Y}
-    local key_toggle_hidden=${FUZZY_FS_KEY_TOGGLE_HIDDEN:-Ctrl-A}
+    local key_run_query=${FUZZY_FS_KEY_RUN_QUERY:-Ctrl-O}
+    local key_toggle_hidden=${FUZZY_FS_KEY_TOGGLE_HIDDEN:-Ctrl-T}
     local key_shell=${FUZZY_FS_KEY_SHELL:-Ctrl-I}
     if [[ ! -z "$_per_directory_history_is_global" ]]; then
         local key_toggle_per_directory_history=Ctrl-G

@@ -5,10 +5,10 @@ function _fuzzy-fs-find-panel {
 
     # key bindings
     local key_enter=${FUZZY_FS_KEY_ENTER:-Enter}
-    local key_toggle_hidden=${FUZZY_FS_KEY_TOGGLE_HIDDEN:-Ctrl-A}
+    local key_toggle_hidden=${FUZZY_FS_KEY_TOGGLE_HIDDEN:-Ctrl-T}
     local key_exit=${FUZZY_FS_KEY_EXIT:-Ctrl-Q}
     local key_abort=${FUZZY_FS_KEY_FIND:-Ctrl-F}
-    local key_edit=${FUZZY_FS_KEY_EDIT:-Ctrl-O}
+    local key_edit=${FUZZY_FS_KEY_EDIT:-Ctrl-E}
     local key_refresh=${FUZZY_FS_KEY_REFRESH:-Ctrl-R}
     local key_shell=${FUZZY_FS_KEY_SHELL:-Ctrl-I}
     local key_parent=${FUZZY_FS_KEY_PARENT:-Ctrl-U}
